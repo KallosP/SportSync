@@ -1,68 +1,86 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@import 'tailwindcss';
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+@theme {
+	/* Font */
+	--font-header: 'League Gothic', 'sans-serif';
+	/* Light Mode Colors ----- */
+    /* Main Background */
+    --color-background: var(--color-gray-100);
+	/* Header */
+	--color-header-background: var(--color-blue-500);
+	--color-header-text: #fff;
+	/* Misc Text */
+	--color-normal-text: #111;
+	--color-hint-text: var(--color-gray-500);
+	--color-link-text: var(--color-blue-500);
+	/* Button */
+	--color-button-text: #fff;
+	--color-button-background: var(--color-blue-600);
+	--color-button-hover: var(--color-blue-700);
+	--color-button-focus: var(--color-blue-800);
+	/* Checkbox */
+	--color-checkbox-checked: var(--color-blue-500);
+	--color-checkbox-background: #fff;
+	--color-checkbox-border: var(--color-gray-500);
+	/* Elevated */
+	--color-elevated-background: #fff;
+	--color-card-hover: var(--color-blue-50);
+	/* Hamburger */
+	--color-hamburger: #fff;
+	--color-hamburger-hover: var(--color-blue-600);
+	/* Toggle Button */
+	--color-toggle-button: #182d4b;
+	--color-toggle-button-text: #fff;
+	--color-toggle-button-hover: var(--color-gray-800);
+	/* Input */
+	--color-input-border: var(--color-gray-300);
+	--color-input-border-ring: var(--color-blue-500);
+	/* Misc */
+	--color-icon: #333;
+	--color-divider: var(--color-gray-300);
+    --color-tag: var(--color-blue-300);
+    --color-svg: #000;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	/* Dark Mode Colors ----- */
+    /* Main Background */
+    --color-dark-background: #081220;
+	/* Header */
+	--color-dark-header-background: var(--color-blue-800); 
+	--color-dark-header-text: #fff; 
+	/* Misc Text */
+	--color-dark-normal-text: #eee;
+	--color-dark-hint-text: var(--color-gray-300);
+	--color-dark-link-text: var(--color-blue-500);
+	/* Button */
+	--color-dark-button-text: #fff; 
+	--color-dark-button-background: var(--color-blue-600);
+	--color-dark-button-hover: var(--color-blue-700); 
+	--color-dark-button-focus: var(--color-blue-800); 
+	/* Checkbox */
+	--color-dark-checkbox-checked: var(--color-blue-500);
+	--color-dark-checkbox-background: var(--color-gray-700);
+	--color-dark-checkbox-border: var(--color-gray-500);
+	/* Elevated */
+	--color-dark-elevated-background: #182d4b; 
+	--color-dark-card-hover: #1e3a61;
+	/* Hamburger */
+	--color-dark-hamburger: #fff;
+	--color-dark-hamburger-hover: var(--color-blue-900);
+	/* Toggle Button */
+	--color-dark-toggle-button: #fff;
+	--color-dark-toggle-button-text: var(--color-gray-900);
+	--color-toggle-button-hover: #dbdbdb;
+	/* Input */
+	--color-dark-input-border: var(--color-gray-500);
+	--color-dark-input-border-ring: var(--color-blue-500);
+	/* Misc */
+	--color-dark-icon: var(--color-gray-400);
+    --color-dark-svg: #fff;
+	--color-dark-divider: var(--color-gray-600);
+    --color-dark-tag: var(--color-blue-600);
 }
+@custom-variant dark (&:where(.dark, .dark *));
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.dark {
+	color-scheme: dark;
 }
