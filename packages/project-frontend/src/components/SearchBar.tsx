@@ -1,12 +1,11 @@
 // Based on https://flowbite.com/docs/forms/search-input/
-import { useState } from 'react';
 
 interface SearchBarProps {
 	searchTerm: string;
 	setSearchTerm: (searchTerm: string) => void;
 }
 
-export default function SearchBar({searchTerm, setSearchTerm}: SearchBarProps) {
+export default function SearchBar({setSearchTerm}: SearchBarProps) {
 	let inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
 		//convert input text to lower case
 	

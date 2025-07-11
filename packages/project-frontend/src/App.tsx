@@ -19,7 +19,7 @@ function App() {
 	const [password, setPassword] = useState("");
 	const [createNewAccount, setCreateNewAccount] = useState(false);
 
-	const {token, currUserId} = useToken();
+	const {token} = useToken();
 
 	function handleMenuClick() {
 		setOpenLeftSidebar(!openLeftSidebar);

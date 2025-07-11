@@ -1,4 +1,3 @@
-import React, {useState} from "react";
 import type {GameType} from "../components/GameCard";
 import GameCard from "../components/GameCard";
 

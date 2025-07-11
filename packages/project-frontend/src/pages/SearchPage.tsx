@@ -3,7 +3,7 @@ import SearchBar from "../components/SearchBar";
 import LeftSidebar from "../components/LeftSidebar";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
-import {useNavigate, useLocation} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import LoadingSpinner from "../components/LoadingSpinner";
 import BACKEND_URL from "../constants";
 import type {GameType} from "../components/GameCard";
@@ -19,7 +19,6 @@ interface SearchPageProps {
 
 export default function SearchPage({openLeftSidebar, addAuthHeader}: SearchPageProps) {
 	const navigate = useNavigate();
-	const location = useLocation();
 	const {token, currUserId} = useToken();
 
 	const [games, setGames] = React.useState<GameType[]>([]);

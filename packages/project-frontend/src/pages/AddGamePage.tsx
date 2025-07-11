@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {useNavigate, useLocation} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import SoccerBall from "../assets/soccer-ball.jpg";
 import BasketballBall from "../assets/basketball-ball.jpg";
 import Baseball from "../assets/baseball.jpg";
