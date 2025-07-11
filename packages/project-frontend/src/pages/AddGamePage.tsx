@@ -1,12 +1,5 @@
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
-import SoccerBall from "../assets/soccer-ball.jpg";
-import BasketballBall from "../assets/basketball-ball.jpg";
-import Baseball from "../assets/baseball.jpg";
-import FootballHelmet from "../assets/football-helmet.jpg";
-import Volleyball from "../assets/volleyball.jpg";
-import Tennis from "../assets/tennis.jpg";
-import GenericSport from "../assets/generic-sport.jpg";
 import BACKEND_URL from "../constants";
 import {useToken} from "../TokenContext";
 
@@ -20,7 +13,7 @@ export default function AddGamePage({addAuthHeader}: AddGamePageProps) {
 	const [description, setDescription] = useState("");
 	const [sport, setSport] = useState("");
 	const [level, setLevel] = useState("Casual");
-	const [img, setImg] = useState(GenericSport);
+	const [img, setImg] = useState("/assets/generic-sport.jpg");
 	const {token, currUserId} = useToken();
 
 	console.log("Curr user from add game: ", currUserId);
@@ -64,14 +57,14 @@ export default function AddGamePage({addAuthHeader}: AddGamePageProps) {
 
 	const handleSportSelection = (selectedSport: string) => {
 		setSport(selectedSport);
-		if (selectedSport === "Soccer") setImg(SoccerBall);
-		else if (selectedSport === "Basketball") setImg(BasketballBall);
-		else if (selectedSport === "Baseball") setImg(Baseball);
-		else if (selectedSport === "Football") setImg(FootballHelmet);
-		else if (selectedSport === "Volleyball") setImg(Volleyball);
-		else if (selectedSport === "Tennis") setImg(Tennis);
-		else if (selectedSport === "Other") setImg(GenericSport);
-		else setImg(GenericSport);
+		if (selectedSport === "Soccer") setImg("/assets/soccer-ball.jpg");
+		else if (selectedSport === "Basketball") setImg("/assets/basketball-ball.jpg");
+		else if (selectedSport === "Baseball") setImg("/assets/baseball.jpg");
+		else if (selectedSport === "Football") setImg("/assets/football-helmet.jpg");
+		else if (selectedSport === "Volleyball") setImg("/assets/volleyball.jpg");
+		else if (selectedSport === "Tennis") setImg("/assets/tennis.jpg");
+		else if (selectedSport === "Other") setImg("/assets/generic-sport.jpg");
+		else setImg("/assets/generic-sport.jpg");
 	};
 
 	return (
