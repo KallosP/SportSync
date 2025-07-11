@@ -7,5 +7,6 @@
     "test": "echo \"Error: no test specified\""
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "workspaces": ["packages/*"]
 }
