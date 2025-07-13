@@ -14,7 +14,6 @@ const cors_1 = __importDefault(require("cors"));
 dotenv_1.default.config(); // Read the .env file in the current working directory, and load values into process.env.
 const PORT = process.env.PORT || 3000;
 const staticDir = path_1.default.resolve(process.env.STATIC_DIR || "public"); // Ensure an absolute path
-console.log("USING:", staticDir);
 async function setUpServer() {
     const { MONGO_USER, MONGO_PWD, MONGO_CLUSTER, DB_NAME } = process.env;
     const connectionStringRedacted = `mongodb+srv://${MONGO_USER}:<password>@${MONGO_CLUSTER}/${DB_NAME}`;
