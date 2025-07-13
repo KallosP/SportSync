@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     permissions:
       contents: read #This is required for actions/checkout
 
@@ -26,15 +26,17 @@ jobs:
       - name: npm install, build, and test
         run: |
           npm install
-          npm run -w project-backend build --if-present
-          npm run -w project-backend test --if-present
-        working-directory: packages/project-backend
-      
+          npm run build --if-present
+          npm run test --if-present
+
+      - name: Zip artifact for deployment
+        run: zip release.zip ./* -r
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: packages/project-backend
+          path: release.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -49,17 +51,20 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: node-app
+
+      - name: Unzip artifact for deployment
+        run: unzip release.zip
       
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_0919A2B12F234F64AB1829DED47A7422 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_90E3E397CA1D4849A06EBF37D77A3E42 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_F07CEEFC19344025A7512B3BF9CCCB55 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_6BE0C6A08EB3480BB0F7CABEE3D6E934 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_3BDA92F1383E4CF09E904B8C7951163C }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_96F84F6879C5493E81025FC631BA6E68 }}
 
       - name: 'Deploy to Azure Web App'
-        uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
+        uses: azure/webapps-deploy@v3
         with:
           app-name: 'sportsync'
           slot-name: 'Production'
