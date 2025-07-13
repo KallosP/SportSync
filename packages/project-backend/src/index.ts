@@ -37,18 +37,18 @@ async function setUpServer() {
 	registerGameRoutes(app);
 	registerCommentRoutes(app);
 
-	//app.get("*", (req: Request, res: Response) => {
-	//	console.log("none of the routes above me were matched");
-	//	res.sendFile(path.join(staticDir, "index.html"), (err) => {
-	//		if (err) {
-	//			console.error("Error sending index.html:", err);
-	//			res.status(500).send("Internal Server Error");
-	//		}
-	//	});
-	//});
+	app.get("*", (req, res) => {
+		console.log("none of the routes above me were matched");
+		res.sendFile(path.resolve(__dirname, staticDir, "index.html"), (err) => {
+			if (err) {
+				console.error("Error sending index.html:", err);
+				res.status(500).send("Internal Server Error");
+			}
+		});
+	});
 
 	app.listen(PORT, () => {
-		console.log(`Server running at http://localhost:${PORT}`);
+		console.log(`SportSync server running on port: ${PORT}`);
 	});
 }
 

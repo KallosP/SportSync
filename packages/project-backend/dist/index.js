@@ -14,6 +14,7 @@ const cors_1 = __importDefault(require("cors"));
 dotenv_1.default.config(); // Read the .env file in the current working directory, and load values into process.env.
 const PORT = process.env.PORT || 3000;
 const staticDir = path_1.default.resolve(process.env.STATIC_DIR || "public"); // Ensure an absolute path
+console.log("USING:", staticDir);
 async function setUpServer() {
     const { MONGO_USER, MONGO_PWD, MONGO_CLUSTER, DB_NAME } = process.env;
     const connectionStringRedacted = `mongodb+srv://${MONGO_USER}:<password>@${MONGO_CLUSTER}/${DB_NAME}`;
@@ -31,17 +32,17 @@ async function setUpServer() {
     (0, user_1.registerUserRoutes)(app);
     (0, game_1.registerGameRoutes)(app);
     (0, comment_1.registerCommentRoutes)(app);
-    //app.get("*", (req: Request, res: Response) => {
-    //	console.log("none of the routes above me were matched");
-    //	res.sendFile(path.join(staticDir, "index.html"), (err) => {
-    //		if (err) {
-    //			console.error("Error sending index.html:", err);
-    //			res.status(500).send("Internal Server Error");
-    //		}
-    //	});
-    //});
+    app.get("*", (req, res) => {
+        console.log("none of the routes above me were matched");
+        res.sendFile(path_1.default.resolve(__dirname, staticDir, "index.html"), (err) => {
+            if (err) {
+                console.error("Error sending index.html:", err);
+                res.status(500).send("Internal Server Error");
+            }
+        });
+    });
     app.listen(PORT, () => {
-        console.log(`Server running at http://localhost:${PORT}`);
+        console.log(`SportSync server running on port: ${PORT}`);
     });
 }
 setUpServer();
