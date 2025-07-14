@@ -19,6 +19,10 @@ import cors from "cors";
 // file from the built frontend is referenced by the backend via the 
 // `STATIC_DIR` env variable using 'path.resolve()').
 
+//  Steps for Updating Production
+// - If frontend was changed, `npm run build` and move the created `build` directory to `project-backend`
+// - Push changed code as normal and wait for CI to pass
+
 dotenv.config(); // Read the .env file in the current working directory, and load values into process.env.
 const PORT = process.env.PORT || 3000;
 const staticDir = path.resolve(process.env.STATIC_DIR || "public"); // Ensure an absolute path
