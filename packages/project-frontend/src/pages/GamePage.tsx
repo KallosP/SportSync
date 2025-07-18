@@ -26,7 +26,7 @@ export default function GamePage({addAuthHeader}: GamePageProps) {
 			setIsLoading(true);
 			if (isGoing) {
 				// Remove player from game
-				const response = await fetch(`${BACKEND_URL}/api/games/${props._id}`, {
+				const response = await fetch(`${BACKEND_URL}/api/games/${props._id}/player`, {
 					method: "DELETE",
 					headers: {
 						"Content-Type": "application/json",
@@ -46,7 +46,7 @@ export default function GamePage({addAuthHeader}: GamePageProps) {
 				}
 			} else {
 				// Add player to game
-				const response = await fetch(`${BACKEND_URL}/api/games/${props._id}`, {
+				const response = await fetch(`${BACKEND_URL}/api/games/${props._id}/player`, {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
@@ -72,6 +72,38 @@ export default function GamePage({addAuthHeader}: GamePageProps) {
 			setIsLoading(false);
 		}
 	}
+
+
+	// TODO
+	//async function handleDeleteGame() {
+	//	try{
+	//		setIsLoading(true)
+	//		const response = await fetch(`${BACKEND_URL}/api/games/${props._id}`, {
+	//			method: "DELETE",
+	//			headers: {
+	//				"Content-Type": "application/json",
+	//				...addAuthHeader(token)
+	//			},
+	//		})
+
+	//		if(response.ok){
+	//			console.log("Game deleted");
+	//			const data = await response.json();
+	//			// TODO: update frontend with deleted game
+	//			return data;
+	//		} else {
+	//			console.log("Failed to delete game");
+	//			throw new Error("Failed to delete game");
+	//		}
+	//	}
+	//	catch(e) {
+	//		console.log("Error deleting game", e);
+	//		alert("Something went wrong deleting game...");
+	//	}
+	//	finally {
+	//		setIsLoading(false)
+	//	}
+	//}
 
 	// FIXME: the use of the players state variable in rendering
 	//		  was for frontend testing purposes. prob have to change
@@ -143,6 +175,12 @@ export default function GamePage({addAuthHeader}: GamePageProps) {
 									className="text-button-text h-10 dark:text-dark-button-text cursor-pointer transition-all duration-300 bg-button-background dark:bg-dark-button-background hover:bg-button-hover dark:hover:bg-dark-button-hover focus:bg-button-focus dark:focus:bg-dark-button-focus font-medium rounded-lg text-sm px-4 py-2 ">
 									{isLoading ? <LoadingSpinner /> : isGoing ? "Going!" : "Mark As Going"}
 								</button>
+								{/* TODO: if current user's ID matches organizer's ID, show delete button */}
+								{/*<button
+									onClick={() => handleDeleteGame()}
+									className="text-button-text h-10 dark:text-dark-button-text cursor-pointer transition-all duration-300 bg-button-delete-background dark:bg-dark-button-delete-background hover:bg-button-hover dark:hover:bg-dark-button-hover focus:bg-button-focus dark:focus:bg-dark-button-focus font-medium rounded-lg text-sm px-4 py-2 ">
+									{isLoading ? <LoadingSpinner /> : "Delete"}
+								</button>*/}
 							</div>
 						</div>
 						{/* Description/Attendees */}

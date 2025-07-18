@@ -61,7 +61,7 @@ function registerGameRoutes(app) {
         });
     });
     // Add a player to a game
-    app.post("/api/games/:id", async (req, res) => {
+    app.post("/api/games/:id/player", async (req, res) => {
         const gameId = req.params.id;
         const playerId = req.body.playerId;
         // Get the player document
@@ -80,7 +80,7 @@ function registerGameRoutes(app) {
         });
     });
     // Delete player from game
-    app.delete("/api/games/:id", async (req, res) => {
+    app.delete("/api/games/:id/player", async (req, res) => {
         const gameId = req.params.id;
         const playerId = req.body.playerId;
         // Get the player document

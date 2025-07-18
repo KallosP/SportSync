@@ -16,6 +16,7 @@
 	/* Button */
 	--color-button-text: #fff;
 	--color-button-background: var(--color-blue-600);
+	--color-button-delete-background: var(--color-red-600);
 	--color-button-hover: var(--color-blue-700);
 	--color-button-focus: var(--color-blue-800);
 	/* Checkbox */
@@ -54,6 +55,7 @@
 	/* Button */
 	--color-dark-button-text: #fff; 
 	--color-dark-button-background: var(--color-blue-600);
+	--color-dark-button-delete-background: var(--color-red-600);
 	--color-dark-button-hover: var(--color-blue-700); 
 	--color-dark-button-focus: var(--color-blue-800); 
 	/* Checkbox */

@@ -74,7 +74,7 @@ export function registerGameRoutes(app: express.Application) {
 	})
 
 	// Add a player to a game
-	app.post("/api/games/:id", async (req: Request, res: Response) => {
+	app.post("/api/games/:id/player", async (req: Request, res: Response) => {
 		const gameId = req.params.id;
 		const playerId = req.body.playerId;
 
@@ -96,7 +96,7 @@ export function registerGameRoutes(app: express.Application) {
 	})
 
 	// Delete player from game
-	app.delete("/api/games/:id", async (req: Request, res: Response) => {
+	app.delete("/api/games/:id/player", async (req: Request, res: Response) => {
 		const gameId = req.params.id;
 		const playerId = req.body.playerId;
 
