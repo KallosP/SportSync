@@ -67,7 +67,7 @@ export default function SearchPage({openLeftSidebar, addAuthHeader}: SearchPageP
 					</div>
 					{/* Game List */}
 					{loading ? (
-						<LoadingSpinner />
+						<LoadingSpinner onButton={false}/>
 					) : games.length > 0 ? (
 						<GameList input={searchTerm} games={games} filters={filters} />
 					) : (

@@ -18,7 +18,9 @@
 	--color-button-background: var(--color-blue-600);
 	--color-button-delete-background: var(--color-red-600);
 	--color-button-hover: var(--color-blue-700);
+	--color-button-delete-hover: var(--color-red-700);
 	--color-button-focus: var(--color-blue-800);
+	--color-button-delete-focus: var(--color-red-800);
 	/* Checkbox */
 	--color-checkbox-checked: var(--color-blue-500);
 	--color-checkbox-background: #fff;
@@ -57,7 +59,9 @@
 	--color-dark-button-background: var(--color-blue-600);
 	--color-dark-button-delete-background: var(--color-red-600);
 	--color-dark-button-hover: var(--color-blue-700); 
+	--color-dark-button-delete-hover: var(--color-red-700); 
 	--color-dark-button-focus: var(--color-blue-800); 
+	--color-dark-button-delete-focus: var(--color-red-800); 
 	/* Checkbox */
 	--color-dark-checkbox-checked: var(--color-blue-500);
 	--color-dark-checkbox-background: var(--color-gray-700);

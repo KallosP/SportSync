@@ -7,6 +7,7 @@ import {useState, useEffect} from "react";
 import LoadingSpinner from "../components/LoadingSpinner";
 import {useToken} from "../TokenContext";
 import BACKEND_URL from "../constants";
+import {useNavigate} from "react-router-dom";
 
 interface GamePageProps {
 	addAuthHeader: (token: string) => Record<string, string>;
@@ -16,14 +17,17 @@ export default function GamePage({addAuthHeader}: GamePageProps) {
 	const location = useLocation();
 	const [isGoing, setIsGoing] = useState(false);
 	const {tags, ...props} = location.state || [];
-	const [isLoading, setIsLoading] = useState(false);
+	const [isGoingLoading, setIsGoingLoading] = useState(false);
+	const [isDeleteLoading, setIsDeleteLoading] = useState(false);
 	const [players, setPlayers] = useState<string[]>(props.players);
 	const {token, currUserId} = useToken();
 	const [comments, setComments] = useState<string[]>([]);
+	const [organizerId, setOrganizerId] = useState<string>();
+	const navigate = useNavigate();
 
 	async function handleMarkAsGoing() {
 		try {
-			setIsLoading(true);
+			setIsGoingLoading(true);
 			if (isGoing) {
 				// Remove player from game
 				const response = await fetch(`${BACKEND_URL}/api/games/${props._id}/player`, {
@@ -69,41 +73,41 @@ export default function GamePage({addAuthHeader}: GamePageProps) {
 			console.log("Error modifying player in game", e);
 			alert("Something went wrong...");
 		} finally {
-			setIsLoading(false);
+			setIsGoingLoading(false);
 		}
 	}
 
 
-	// TODO
-	//async function handleDeleteGame() {
-	//	try{
-	//		setIsLoading(true)
-	//		const response = await fetch(`${BACKEND_URL}/api/games/${props._id}`, {
-	//			method: "DELETE",
-	//			headers: {
-	//				"Content-Type": "application/json",
-	//				...addAuthHeader(token)
-	//			},
-	//		})
+	// Deletes a game listing
+	async function handleDeleteGame() {
+		try{
+			setIsDeleteLoading(true)
+			const response = await fetch(`${BACKEND_URL}/api/games/${props._id}`, {
+				method: "DELETE",
+				headers: {
+					"Content-Type": "application/json",
+					...addAuthHeader(token)
+				},
+				body: JSON.stringify({playerId: currUserId})
+			})
 
-	//		if(response.ok){
-	//			console.log("Game deleted");
-	//			const data = await response.json();
-	//			// TODO: update frontend with deleted game
-	//			return data;
-	//		} else {
-	//			console.log("Failed to delete game");
-	//			throw new Error("Failed to delete game");
-	//		}
-	//	}
-	//	catch(e) {
-	//		console.log("Error deleting game", e);
-	//		alert("Something went wrong deleting game...");
-	//	}
-	//	finally {
-	//		setIsLoading(false)
-	//	}
-	//}
+			if(response.ok){
+				console.log("Game deleted");
+				navigate("/search");
+			} else {
+				const errMsg = await response.json()
+				console.log("Failed to delete game:", errMsg);
+				throw new Error("Failed to delete game: ", errMsg);
+			}
+		}
+		catch(e) {
+			console.log("Error deleting game", e);
+			alert("Something went wrong deleting game...");
+		}
+		finally {
+			setIsDeleteLoading(false)
+		}
+	}
 
 	// FIXME: the use of the players state variable in rendering
 	//		  was for frontend testing purposes. prob have to change
@@ -134,6 +138,7 @@ export default function GamePage({addAuthHeader}: GamePageProps) {
 					});
 					const newComments = data.comments.map((comment: any) => comment.content);
 					setComments(newComments);
+					setOrganizerId(data.organizer._id)
 				}
 			} catch (e) {
 				console.log("Error getting game data:", e);
@@ -173,14 +178,15 @@ export default function GamePage({addAuthHeader}: GamePageProps) {
 								<button
 									onClick={() => handleMarkAsGoing()}
 									className="text-button-text h-10 dark:text-dark-button-text cursor-pointer transition-all duration-300 bg-button-background dark:bg-dark-button-background hover:bg-button-hover dark:hover:bg-dark-button-hover focus:bg-button-focus dark:focus:bg-dark-button-focus font-medium rounded-lg text-sm px-4 py-2 ">
-									{isLoading ? <LoadingSpinner /> : isGoing ? "Going!" : "Mark As Going"}
+									{isGoingLoading ? <LoadingSpinner onButton={true}/> : isGoing ? "Going!" : "Mark As Going"}
 								</button>
-								{/* TODO: if current user's ID matches organizer's ID, show delete button */}
-								{/*<button
-									onClick={() => handleDeleteGame()}
-									className="text-button-text h-10 dark:text-dark-button-text cursor-pointer transition-all duration-300 bg-button-delete-background dark:bg-dark-button-delete-background hover:bg-button-hover dark:hover:bg-dark-button-hover focus:bg-button-focus dark:focus:bg-dark-button-focus font-medium rounded-lg text-sm px-4 py-2 ">
-									{isLoading ? <LoadingSpinner /> : "Delete"}
-								</button>*/}
+								{currUserId === organizerId && (
+									<button
+										onClick={() => handleDeleteGame()}
+										className="text-button-text h-10 dark:text-dark-button-text cursor-pointer transition-all duration-300 bg-button-delete-background dark:bg-dark-button-delete-background hover:bg-button-delete-hover dark:hover:bg-dark-button-delete-hover focus:bg-button-delete-focus dark:focus:bg-dark-button-delete-focus font-medium rounded-lg text-sm px-4 py-2 ">
+										{isDeleteLoading ? <LoadingSpinner onButton={true}/> : "Delete"}
+									</button>
+								)}
 							</div>
 						</div>
 						{/* Description/Attendees */}

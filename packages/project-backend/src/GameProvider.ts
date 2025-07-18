@@ -58,4 +58,10 @@ export class GameProvider {
 			{new: true}
 		);
 	}
+
+	async deleteGame(gameId: string) {
+		return gamesModel.findOneAndDelete(
+			{_id: gameId},
+		)
+	}
 }

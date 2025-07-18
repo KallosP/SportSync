@@ -72,7 +72,7 @@ export default function CommentSection({comments, setComments, addAuthHeader, cu
 			<h3 className="mt-8 text-2xl dark:text-dark-normal-text text-normal-text">Posted Comments</h3>
 			{/* Comment List */}
 			{isLoading ? (
-				<LoadingSpinner />
+				<LoadingSpinner onButton={false}/>
 			) : (
 				<ul className="mt-2 space-y-2">
 					

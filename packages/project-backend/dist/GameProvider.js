@@ -39,5 +39,8 @@ class GameProvider {
         // Remove the player (document)
         { $pull: { players: player } }, { new: true });
     }
+    async deleteGame(gameId) {
+        return games_1.default.findOneAndDelete({ _id: gameId });
+    }
 }
 exports.GameProvider = GameProvider;

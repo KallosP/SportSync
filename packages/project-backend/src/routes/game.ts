@@ -6,6 +6,15 @@ import User from "../models/users"; // Adjust path as needed
 export function registerGameRoutes(app: express.Application) {
 	const gameProvider = new GameProvider();
 
+	async function getPlayerDocument(playerId: string){
+		// Get the player document
+		const player = await User.findById(playerId);
+		if (!player) {
+			throw new Error("Player not found");
+		}
+		return player
+	}
+
 	// Create Game
 	app.post("/api/game", async (req: Request, res: Response): Promise<void> => {
 		try {
@@ -116,5 +125,36 @@ export function registerGameRoutes(app: express.Application) {
 				console.log(err)
 				res.status(500).send(err);
 			});
+	})
+
+	app.delete("/api/games/:id", async (req: Request, res: Response) => {
+		const gameId = req.params.id;
+		const playerId = req.body.playerId;
+
+		const player = await getPlayerDocument(playerId);
+
+		const game = await gameProvider.findGame(gameId)
+		if (!game) {
+			throw new Error("Game does not exist")
+		}
+		if (!game.organizer){
+			throw new Error("Game does not exist")
+		}
+
+		// @ts-ignore
+		if (!player._id.equals(game.organizer._id)){
+			return res.status(401).send("Failed to delete game. Only game organizers can remove their listings.")
+		} 
+
+		gameProvider
+			.deleteGame(gameId)
+			.then(() => {
+				// Successful delete
+				res.status(204).send()
+			})
+			.catch((err) => {
+				console.log(err)
+				res.status(500).send(err)
+			})
 	})
 }
